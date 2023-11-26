@@ -23,17 +23,16 @@ onClickOutside(modal, () => {
   emit("update:isOpen", false);
 });
 
-const copyText = async () => {
+const copyText = async (text: string | undefined) => {
   try {
-    if (store.value?.pub_key) {
-      await navigator.clipboard.writeText(store.value.pub_key);
+    if (text) {
+      await navigator.clipboard.writeText(text);
       console.log("Текст успешно скопирован в буфер обмена");
     }
   } catch (err) {
     console.error("Ошибка при копировании текста:", err);
   }
 };
-
 const closeModal = () => {
   emit("update:isOpen", false);
 };
@@ -46,33 +45,82 @@ const closeModal = () => {
     >
       <div
         ref="modal"
-        class="p-[20px] bg-white rounded-md w-[300px] md:w-[600px] flex flex-col items-center"
+        class="p-[20px] bg-white rounded-md w-[300px] md:w-[600px] flex flex-col items-center max-h-[70vh] overflow-auto"
       >
         <h2 class="text-mainBlue text-[28px] mb-3">Как добавить сервер?</h2>
         <div class="p-3 bg-[#e9e9e9] rounded-md flex gap-3 w-fit">
-          <p class="w-[250px] overflow-hidden">{{ store.value?.pub_key }}</p>
+          <p class="w-fit md:w-[250px] overflow-hidden">
+            {{ store.value?.pub_key }}
+          </p>
           <Button
             icon="pi pi-copy"
             severity="info"
             aria-label="copy"
-            @click="copyText"
+            @click="copyText(store.value?.pub_key)"
           />
         </div>
         <div class="flex flex-col items-center mt-3">
-          <p class="text-[20px] w-[300px] text-center">
-            Выше предоставлен публичный SSH ключ. Чтоб подключить свой сервер к
-            нашему сервису, вам нужно подвязать данный ключ к своему серверу.
-          </p>
+          <div>
+            <p class="text-[20px] w-[300px] text-center">
+              Выше предоставлен публичный SSH ключ. Чтоб подключить свой сервер
+              к нашему сервису, вам нужно подвязать данный ключ к своему
+              серверу.
+            </p>
+            <p class="text-[20px] w-[300px] text-center mt-3">
+              Это делается через панель управления вашим сервером
+            </p>
+          </div>
+
+          <h3 class="text-[25px] text-mainBlue font-medium my-3">
+            Установка для дистрибутивов
+          </h3>
+          <div class="flex flex-col gap-3">
+            <div class="p-3 bg-[#e9e9e9] rounded-md flex gap-3 w-fit">
+              <p class="w-[250px] overflow-hidden">
+                systemctl enable --now libvirt
+              </p>
+              <Button
+                icon="pi pi-copy"
+                severity="info"
+                aria-label="copy"
+                @click="copyText('systemctl enable --now libvirt')"
+              />
+            </div>
+            <div class="p-3 bg-[#e9e9e9] rounded-md flex gap-3 w-fit">
+              <p class="w-[250px] overflow-hidden">
+                systemctl enable --now libvirt
+              </p>
+              <Button
+                icon="pi pi-copy"
+                severity="info"
+                aria-label="copy"
+                @click="copyText('systemctl enable --now libvirt-tcp.socket')"
+              />
+            </div>
+            <div class="p-3 bg-[#e9e9e9] rounded-md flex gap-3 w-fit">
+              <p class="w-[250px] overflow-hidden">
+                vi ~root/.ssh/authorized_keys
+              </p>
+              <Button
+                icon="pi pi-copy"
+                severity="info"
+                aria-label="copy"
+                @click="copyText('vi ~root/.ssh/authorized_keys')"
+              />
+            </div>
+          </div>
           <p class="text-[20px] w-[300px] text-center mt-3">
-            Это делается через панель управления вашим сервером
+            Данные команды универсальны для любого из дистрибутивов линукс
           </p>
         </div>
-        <Button
-          label="Закрыть"
-          severity="danger"
-          @click="closeModal"
-          class="mt-3 self-end"
-        />
+        <div class="mt-3 self-end w-fit h-[40px]">
+          <Button
+            label="Закрыть"
+            severity="danger"
+            @click="closeModal"
+            class="block"
+          />
+        </div>
       </div>
     </div>
   </Teleport>
