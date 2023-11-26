@@ -60,7 +60,7 @@ const closeModal = () => {
         </div>
         <div class="flex flex-col items-center mt-3">
           <p class="text-[20px] w-[300px] text-center">
-            Выше предоставлен публичный SSH ключ. Чтоб подклчить свой сервер к
+            Выше предоставлен публичный SSH ключ. Чтоб подключить свой сервер к
             нашему сервису, вам нужно подвязать данный ключ к своему серверу.
           </p>
           <p class="text-[20px] w-[300px] text-center mt-3">
