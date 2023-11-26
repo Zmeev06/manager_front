@@ -91,7 +91,7 @@ const openNewVm = () => {
         />
       </div>
     </div>
-    <ul class="ml-6 mt-3 w-[250px] overflow-auto max-h-[78vh]" v-if="props.vms">
+    <ul class="ml-6 mt-3 max-h-[78vh]" v-if="props.vms">
       <div
         class="w-fit flex gap-2 items-center"
         v-for="(item, index) in props.vms"

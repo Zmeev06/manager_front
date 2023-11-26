@@ -70,7 +70,6 @@ const openFaq = () => {
             severity="info"
             aria-label="User"
             size="small"
-            v-if="servers.length > 1"
             @click="openModal"
           />
         </div>
@@ -135,6 +134,6 @@ const openFaq = () => {
     />
   </div>
   <NewModal v-model:is-open="isOpenModal" />
-  <FAQModal  v-model:is-open="isOpenFAQ" />
+  <FAQModal v-model:is-open="isOpenFAQ" />
 </template>
 <style lang="scss"></style>
